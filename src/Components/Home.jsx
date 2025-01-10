@@ -1,63 +1,66 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-
+// Constants for API
 const API_KEY = "c45a857c193f6302f2b5061c3b85e743";
 const BASE_URL = "https://api.themoviedb.org/3";
 
-const Home = () => {
+const Home = ({ searchQuery }) => {
   const [popularMovies, setPopularMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch popular movies using Axios
-  const fetchPopularMovies = async () => {
+  const fetchMovies = async (query = "") => {
     try {
-      const response = await axios.get(
-        `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
-      );
-      setPopularMovies(response.data.results); // Save the popular movies in state
+      const url = query
+        ? `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&language=en-US&page=1`
+        : `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+
+      const response = await axios.get(url);
+      setPopularMovies(response.data.results);
     } catch (error) {
-      console.error("Error fetching popular movies:", error);
+      console.error("Error fetching movies:", error);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchPopularMovies();
-  }, []);
+    fetchMovies(searchQuery);
+  }, [searchQuery]);
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center mb-8">Popular Movies</h1>
-      {loading ? (
-        <div className="flex justify-center items-center">
-          <p className="text-xl">Loading...</p>
-        </div>
-      ) : (
-        <div className="flex flex-wrap justify-center gap-8">
-          {popularMovies.map((movie) => (
-            <div
-              key={movie.id}
-              className="flex flex-col bg-white rounded-lg shadow-lg w-full sm:w-1/2 md:w-1/3 lg:w-[20%] transform transition duration-300 hover:scale-105 hover:shadow-xl"
-            >
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                className="w-full h-72 object-cover rounded-t-lg hover:cursor-pointer"
-              />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold mb-2">{movie.title}</h3>
-                <p className="text-gray-600">Rating: {movie.vote_average}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+    <div className="bg-gray-900 text-white min-h-screen w-full pt-10 pb-10">
+      <div className="w-[100%] sm:w-[80%] mx-auto">
+        <h1 className="text-4xl font-bold text-center pt-14 mb-8">Popular Movies</h1>
 
-      {/* Include TopRated and Upcoming components */}
-      {/* <TopRated />
-      <Upcoming /> */}
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <p className="text-2xl">Loading...</p>
+          </div>
+        ) : (
+          <div className="flex flex-wrap justify-center gap-8 sm:gap-10 md:gap-6 lg:gap-4 m-[16px] md:m-0">
+            {popularMovies.map((movie) => (
+              <div
+                key={movie.id}
+                className="bg-gray-800 rounded-lg shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-2xl w-full sm:w-[200px] md:w-[200px] lg:w-[250px] xl:w-[280px]"
+              >
+                <Link to={`/movie/${movie.id}`}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt={movie.title}
+                    className="w-full h-[300px] object-cover rounded-t-lg"
+                  />
+                </Link>
+                <div className="text-center pt-2 pb-4 px-2">
+                  <h3 className="text-lg font-semibold pt-1">{movie.title}</h3>
+                  <p className="text-gray-400">Rating: {movie.vote_average}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
