@@ -50,7 +50,7 @@ const MovieDetail = () => {
   }
 
   const getImageUrl = (path) => {
-    return path ? `https://image.tmdb.org/t/p/w500${path}` : '/path/to/fallback-image.jpg'; // Add a fallback image if not available
+    return path ? `https://image.tmdb.org/t/p/w500${path}` : '/path/to/fallback-image.jpg'; 
   };
 
   return (

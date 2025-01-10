@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom';   
 
-// Constants for API
-const API_KEY = "c45a857c193f6302f2b5061c3b85e743";  // Your API Key
+ 
+const API_KEY = "c45a857c193f6302f2b5061c3b85e743";   
 const BASE_URL = "https://api.themoviedb.org/3";
 
 const UpcomingPage = () => {
   const [upcomingMovies, setUpcomingMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchUpcomingMovies = async () => {
@@ -18,20 +18,20 @@ const UpcomingPage = () => {
         const response = await axios.get(
           `${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
         );
-        setUpcomingMovies(response.data.results); // Set the fetched movies
+        setUpcomingMovies(response.data.results);  
       } catch (err) {
         console.error("Error fetching upcoming movies:", err);
         setError("Failed to load upcoming movies.");
       } finally {
-        setLoading(false);  // Stop loading after fetching is done
+        setLoading(false);  
       }
     };
 
     fetchUpcomingMovies();
-  }, []);  // Empty array ensures the fetch runs only once when the component mounts
+  }, []);   
 
   const handleMovieClick = (movieId) => {
-    navigate(`/movie/${movieId}`); // Navigate to the movie detail page
+    navigate(`/movie/${movieId}`);  
   };
 
   if (loading) {
@@ -56,7 +56,7 @@ const UpcomingPage = () => {
             <div
               key={movie.id}
               className="bg-gray-800 rounded-lg shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-2xl w-full sm:w-[200px] md:w-[200px] lg:w-[250px] xl:w-[280px] cursor-pointer"
-              onClick={() => handleMovieClick(movie.id)}  // Add the click handler
+              onClick={() => handleMovieClick(movie.id)}  
             >
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-// Constants for API
+
 const API_KEY = "c45a857c193f6302f2b5061c3b85e743";
 const BASE_URL = "https://api.themoviedb.org/3";
 

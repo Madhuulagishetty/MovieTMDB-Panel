@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom'; 
 
 const API_KEY = "c45a857c193f6302f2b5061c3b85e743";
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -14,7 +14,7 @@ const TopRated = () => {
       const response = await axios.get(
         `${BASE_URL}/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`
       );
-      setTopRated(response.data.results); // Accessing the results array
+      setTopRated(response.data.results); 
     } catch (error) {
       console.error("Error fetching top-rated movies:", error);
     } finally {
