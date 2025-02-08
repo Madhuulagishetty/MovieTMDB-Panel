@@ -10,10 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@shadcn/ui": "^0.0.4",
     "axios": "^1.7.9",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-toggle-theme": "^1.0.0"
+    "lucide-react": "^0.474.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.1",
+    "react-icons": "^5.4.0",
+    "react-lottie": "^1.2.10",
+    "react-slick": "^0.30.3",
+    "react-toastify": "^11.0.3",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -27,7 +34,7 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
     "postcss": "^8.4.49",
-    "react-router-dom": "^7.1.1",
+    "react-router-dom": "^7.1.5",
     "tailwindcss": "^3.4.17",
     "vite": "^6.0.5"
   }
