@@ -8,12 +8,12 @@ const ThankYouPage = () => {
    const { date, cartData } = useContext(contextApi);
    const lastItem = cartData[cartData.length - 1];
   return (
-    <div className="relative w-full h-screen flex justify-center items-center  bg-cover bg-center bg-[url('https://plus.unsplash.com/premium_photo-1661726486910-7cfff916caad?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmlydGhkYXklMjBjZWxlYnJhdGlvbnxlbnwwfHwwfHx8MA%3D%3D')]" >
+    <div className="relative md:w-full h-screen flex justify-center items-center  bg-cover bg-center bg-[url('https://plus.unsplash.com/premium_photo-1661726486910-7cfff916caad?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmlydGhkYXklMjBjZWxlYnJhdGlvbnxlbnwwfHwwfHx8MA%3D%3D')]" >
           <div className="absolute inset-0 bg-black/60"></div>
-      <div className="bg-white rounded-lg shadow-lg z-10 w-full max-w-lg sm:max-w-md px-3 py-3" style={{width:'55%'}}>
+      <div className="bg-white rounded-lg shadow-lg z-10 md:w-full w-[90%] max-w-lg sm:max-w-md px-3 py-3">
         <h2 className="text-2xl font-semibold text-center mb-4">Overview</h2>
 
-        <div className="bg-blue-100 rounded-lg p-4 mb-3 flex items-center justify-between">
+        <div className="bg-blue-100 rounded-lg p-4 mb-3 flex md:items-center md:justify-between   flex-col md:flex-row gap-3 md:gap-0 ">
           <div className="flex items-center">
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />

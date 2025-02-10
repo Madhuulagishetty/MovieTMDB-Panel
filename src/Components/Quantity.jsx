@@ -73,9 +73,9 @@ const QuantityBirthday = () => {
         <div className="flex justify-center mb-4">
           <span className="text-2xl font-semibold">Overview</span>
         </div>
-        <div className="bg-blue-100 rounded-lg p-2 mb-2 flex items-center justify-between">
-          <span className="text-sm sm:text-base">{date}</span>
-          <p className="text-black">{lastItem?.start}-{lastItem?.end}</p>
+        <div className="bg-blue-100 rounded-lg p-4 mb-3 flex md:items-center md:justify-between   flex-col md:flex-row gap-3 md:gap-0">
+          <span className="text-sm sm:text-base">Date: {date}</span>
+          <p className="text-black">Time: {lastItem?.start} - {lastItem?.end}</p>
         </div>
          
         <div className="mb-2">
