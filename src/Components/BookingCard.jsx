@@ -1,15 +1,18 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Star, Users, TicketX, Wine, LoaderPinwheel } from "lucide-react";
 import { FaUtensils } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { contextApi } from './ContextApi/Context'; // Correct import
+import { contextApi } from "./ContextApi/Context";
+import { db } from "../index"; // Firebase config
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 const BookingCard = () => {
-  const { AddtoSlot, cartData } = useContext(contextApi); // Destructure cartData
+  const { AddtoSlot, cartData, date } = useContext(contextApi);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
+  const [bookedSlots, setBookedSlots] = useState([]);
   const navigate = useNavigate();
 
   const timeSlots = [
@@ -40,13 +43,32 @@ const BookingCard = () => {
     ),
   };
 
+  // Fetch booked slots for the selected date
+  useEffect(() => {
+    const fetchBookedSlots = async () => {
+      try {
+        const bookingsRef = collection(db, "bookings");
+        const q = query(bookingsRef, where("date", "==", date));
+        const querySnapshot = await getDocs(q);
+
+        const booked = querySnapshot.docs.map((doc) => doc.data().cartData[0]);
+        // const id = booked.includes(String(2))
+        // console.log('iddd', id)
+        console.log('booked slots', booked)
+        setBookedSlots(booked);
+      } catch (error) {
+        console.error("Error fetching booked slots:", error);
+      }
+    };
+
+    fetchBookedSlots();
+  }, [date]);
+
   const handleBooking = () => {
     if (!selectedTimeSlot) {
       alert("Please select a time slot before proceeding.");
       return;
     }
-
-    console.log("Selected Time Slot:", selectedTimeSlot.start, "-", selectedTimeSlot.end);
 
     navigate("/QuantityBirthday", {
       state: {
@@ -92,59 +114,32 @@ const BookingCard = () => {
 
         <div className="space-y-2">
           <h4 className="text-[1.2rem] font-bold text-gray-800">Luna Theatre</h4>
-          <div className="inline-flex items-center">
-            <div className="px-3 py-1 bg-red-50 text-red-500 rounded-full border border-red-200 text-sm">
-              <span>{timeSlots.length} Slots Available</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-1 text-gray-600">
-            <Users className="w-4 h-4 text-[#5D0072]" />
-            <span className="text-sm text-[#5D0072]">Max 4 People</span>
-            <Wine className="w-4 h-4 text-[#5D0072]" />
-            <span className="text-sm text-[#5D0072]">Food & Drinks available</span>
-          </div>
-          <div className="flex items-center gap-1 text-gray-600">
-            <TicketX className="w-4 h-4 text-[#5D0072]" />
-            <span className="text-sm text-[#5D0072]">Free Cancellation</span>
-            <LoaderPinwheel className="w-4 h-4 text-[#5D0072]" />
-            <span className="text-sm text-[#5D0072]">Decoration Included</span>
-          </div>
-
-          <div className="space-y-1">
-            <h3 className="text-[16px] font-semibold text-gray-800">
-              Select Time Slot
-            </h3>
-            <div className="flex flex-wrap">
-      {timeSlots.map((slot) => (
-        <button
-          key={slot.id}
-          onClick={() => {
-            setSelectedTimeSlot(slot); // Set the selected time slot
-            AddtoSlot(slot); // Add to context
-          }}
-          // disabled={cartData.length >= 1} // Disable if cartData length is greater than or equal to 1
-          className={`rounded-xl border text-sm transition-all ml-1 px-3 py-1 ${
-            selectedTimeSlot && selectedTimeSlot.id === slot.id
-              ? "border-purple-600 bg-purple-50 text-purple-600"
-              : "border-gray-200 hover:border-purple-200"
-          }`}
-        >
-          <div className="font-medium text-[13px] w-20 text-center text-[#5D0072]">
-            <p>{slot.start} -</p>
-            <p>{slot.end}</p>
-          </div>
-        </button>
-      ))}
-    </div>
-          </div>
-
-          <div className="pt-1">
-            <div className="flex items-baseline gap-1">
-              <span className="text-1xl font-semibold">₹2299</span>
-              <span className="text-sm">for up to 4 people with decoration</span>
-            </div>
-            <p className="text-sm text-gray-500">More than 4 people not allowed</p>
+          <h3 className="text-[16px] font-semibold text-gray-800">
+            Select Time Slot
+          </h3>
+          <div className="flex flex-wrap">
+            {timeSlots.map((slot) => (
+              <button
+                key={slot.id}
+                onClick={() => {
+                  setSelectedTimeSlot(slot);
+                  AddtoSlot(slot);
+                }}
+                disabled={bookedSlots.some((booked) => booked.id === slot.id)}
+                className={`rounded-xl border text-sm transition-all ml-1 px-3 py-1 ${
+                  selectedTimeSlot && selectedTimeSlot.id === slot.id
+                    ? "border-purple-600 bg-purple-50 text-purple-600"
+                    : bookedSlots.includes(slot.id)
+                    ? "bg-gray-300 cursor-not-allowed text-gray-500"
+                    : "border-gray-200 hover:border-purple-200"
+                }`}
+              >
+                <div className="font-medium text-[13px] w-20 text-center">
+                  <p>{slot.start} -</p>
+                  <p>{slot.end}</p>
+                </div>
+              </button>
+            ))}
           </div>
 
           <div className="button-main flex justify-center mt-4">
