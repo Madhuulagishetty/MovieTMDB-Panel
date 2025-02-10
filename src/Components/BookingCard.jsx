@@ -123,7 +123,7 @@ const BookingCard = () => {
             setSelectedTimeSlot(slot); // Set the selected time slot
             AddtoSlot(slot); // Add to context
           }}
-          disabled={cartData.length >= 1} // Disable if cartData length is greater than or equal to 1
+          // disabled={cartData.length >= 1} // Disable if cartData length is greater than or equal to 1
           className={`rounded-xl border text-sm transition-all ml-1 px-3 py-1 ${
             selectedTimeSlot && selectedTimeSlot.id === slot.id
               ? "border-purple-600 bg-purple-50 text-purple-600"
