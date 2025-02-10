@@ -5,9 +5,10 @@ import BookingCard from "./Components/BookingCard";
 import QuantityBirthday from "./Components/Quantity";
 import ThankYouPage from "./Components/Thankyou";
 import Context from "./Components/ContextApi/Context";
-import Menu from "./Components/menu";
+import Menu from "./Components/Menu";
 
 const App = () => {
+  
   return (
    
     <Context>

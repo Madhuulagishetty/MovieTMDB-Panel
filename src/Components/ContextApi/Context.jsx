@@ -8,6 +8,7 @@ const Context = ({ children }) => {
 
   const AddtoCart = (items) => {
     setCartData([...cartData, items]);
+    console.log(cartData)
   };
 
   const AddtoSlot = (slot) => {

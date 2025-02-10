@@ -1,8 +1,12 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
+import { contextApi } from "./ContextApi/Context";
+import { useContext } from 'react';
 
 const ThankYouPage = () => {
   const navigate = useNavigate();
+   const { date, cartData } = useContext(contextApi);
+   const lastItem = cartData[cartData.length - 1];
   return (
     <div className="relative w-full h-screen flex justify-center items-center  bg-cover bg-center bg-[url('https://plus.unsplash.com/premium_photo-1661726486910-7cfff916caad?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmlydGhkYXklMjBjZWxlYnJhdGlvbnxlbnwwfHwwfHx8MA%3D%3D')]" >
           <div className="absolute inset-0 bg-black/60"></div>
@@ -14,13 +18,13 @@ const ThankYouPage = () => {
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span className="text-sm sm:text-base">7 February, 2025</span>
+            <span className="text-sm sm:text-base">{date}</span>
           </div>
           <div className="flex items-center">
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span className="text-sm sm:text-base">12:30 PM - 3:30 PM</span>
+            <span className="text-sm sm:text-base">{lastItem?.start}-{lastItem?.end}</span>
           </div>
         </div>
 
