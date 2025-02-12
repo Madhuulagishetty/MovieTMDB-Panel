@@ -207,17 +207,17 @@ const BookingCard = () => {
               <span>{timeSlots.length - bookedSlots.length} Slots Available</span>
             </div>
           </div>
-          <div className="flex items-center gap-1 text-gray-600">
+          <div className="flex items-center gap-1  text-gray-600">
             <Users className="w-4 h-4 text-[#5D0072]" />
-            <span className="text-sm text-[#5D0072]">Max 4 People</span>
+            <span className="md:text-sm text-[13px] text-[#5D0072]">Max 4 People</span>
             <Wine className="w-4 h-4 text-[#5D0072]" />
-            <span className="text-sm text-[#5D0072]">Food & Drinks available</span>
+            <span className="md:text-sm text-[13px] text-[#5D0072]">Food & Drinks available</span>
           </div>
           <div className="flex items-center gap-1 text-gray-600">
             <TicketX className="w-4 h-4 text-[#5D0072]" />
-            <span className="text-sm text-[#5D0072]">Free Cancellation</span>
+            <span className="md:text-sm text-[13px] text-[#5D0072]">Free Cancellation</span>
             <LoaderPinwheel className="w-4 h-4 text-[#5D0072]" />
-            <span className="text-sm text-[#5D0072]">Decoration Included</span>
+            <span className="md:text-sm text-[13px] text-[#5D0072]">Decoration Included</span>
           </div>
           <h3 className="text-[16px] font-semibold text-gray-800">
             Select Time Slot
@@ -232,7 +232,7 @@ const BookingCard = () => {
                   AddtoSlot(slot);
                 }}
                 disabled={bookedSlots.some((booked) => booked.id === slot.id)}
-                className={`rounded-xl border text-sm transition-all ml-1 px-3 py-1 ${
+                className={`rounded-xl border text-sm transition-all ml-1 px-3 py-1 mt-1 md:mt-0 ${
                   selectedTimeSlot && selectedTimeSlot.id === slot.id
                     ? "border-purple-600 bg-purple-50 text-purple-600"
                     : bookedSlots.some((booked) => booked.id === slot.id)
